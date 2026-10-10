@@ -1,0 +1,12 @@
+<h2>Lista restauracji</h2>
+<input type="text" [formField]="form.nameSearch" (input)="updateRestaurantData()"/>
+<section class="list">
+
+  @for(restaurant of restaurants(); track restaurant.id){
+    <app-restaurant-card [restaurant]="restaurant"/>
+  }
+  @empty {
+    <div class="no-restaurants">No restaurants</div>
+  }
+
+</section>

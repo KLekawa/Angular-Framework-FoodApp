@@ -1,0 +1,28 @@
+import { Component, model } from '@angular/core';
+import { form } from '@angular/forms/signals';
+import { Restaurant } from '../../models/restaurant.model';
+
+
+@Component({
+  imports: [],
+  selector: 'app-restaurant-card',
+  styleUrl: './restaurant-card.scss',
+  templateUrl: './restaurant-card.html',
+})
+export class RestaurantCard {
+  restaurant = model<Restaurant>({
+    id: null,
+    name: "",
+    description: "",
+    cuisine: "",
+    imageUrl: "",
+    rating: null,
+    deliveryTimeMin: null,
+    deliveryTimeMax: null,
+    deliveryFee: null,
+    minimumOrderValue: null,
+    isActive: null
+  });
+
+
+}
