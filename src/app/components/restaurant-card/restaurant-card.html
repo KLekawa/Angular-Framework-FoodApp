@@ -1,10 +1,11 @@
 <section class="card">
   <div class="name">{{restaurant().name}}</div>
   <div class="description">{{restaurant().description}}</div>
-  <div class="cuisine">{{restaurant().cuisine}}</div>
+  <div class="cuisine">Cuisine: {{restaurant().cuisine}}</div>
   <div class="image"><img src={{restaurant().imageUrl}} alt=""/></div>
   <div class="rating">Rating: {{restaurant().rating}}/6</div>
+  <div class="rating">Minimum order value: {{restaurant().minimumOrderValue}} USD</div>
   <div class="delivery-time">Delivery time: {{restaurant().deliveryTimeMin}}-{{restaurant().deliveryTimeMax}} min</div>
   <div class="delivery-cost">Delivery fee: {{restaurant().deliveryFee}} USD</div>
-  <div class="is-active">Active: {{restaurant().isActive}}</div>
+  <div class="is-active">Status: @if(restaurant().isActive){Open} @else {Close}</div>
 </section>

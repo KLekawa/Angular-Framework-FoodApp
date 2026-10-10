@@ -1,12 +1,47 @@
 <h2>Lista restauracji</h2>
-<input type="text" [formField]="form.nameSearch" (input)="updateRestaurantData()"/>
+<div class="toolbar">
+  <div class="filter">
+    <p>Filter</p>
+    <input type="text" placeholder="Search" [formField]="form.nameSearch" (input)="updateRestaurantData()"/>
+    Cuisine: 
+    <select [formField]="form.cuisine" (change)="updateRestaurantData()">
+      <option>All</option>
+      <option value="polish">Polish</option>
+      <option value="italian">Italian</option>
+      <option value="american">American</option>
+      <option value="thai">Thai</option>
+      <option value="chinese">Chinese</option>
+    </select>
+
+    Status:
+    <select [formField]="form.active" (change)="updateRestaurantData()">
+      <option>All</option>
+      <option value="true">Open</option>
+    </select>
+    Minimum Order Value: <input type="number" placeholder="Amount" [formField]="form.minimumOrderVal" (input)="updateRestaurantData()"/>
+  </div>
+
+  <div class="sort">
+    <p>Sort</p>
+
+    <select [formField]="form.sortOption" (input)="updateRestaurantData()">
+      <option>None</option>
+      <option value="rating">Rating High - Low</option>
+      <option value="deliveryTime">Delivery Time</option>
+      <option value="deliveryFee">Delivery Fee</option>
+    </select>
+  </div>
+</div>
+<div class="foundItems">
+  <p>Restaurant found: {{itemsFound()}}</p>
+</div>
 <section class="list">
 
   @for(restaurant of restaurants(); track restaurant.id){
     <app-restaurant-card [restaurant]="restaurant"/>
   }
   @empty {
-    <div class="no-restaurants">No restaurants</div>
+    <div class="no-restaurants">No restaurants found</div>
   }
 
 </section>
