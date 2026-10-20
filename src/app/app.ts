@@ -5,7 +5,7 @@ import { Footer } from './components/footer/footer';
 import { RestaurantList } from './components/restaurant-list/restaurant-list';
 
 @Component({
-  imports: [Header, Footer, RestaurantList],
+  imports: [Header, Footer, RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',

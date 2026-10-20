@@ -1,0 +1,116 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Burgery",
+      "products": [
+        {
+          "id": 1,
+          "name": "Classic Burger",
+          "description": "Wołowina, sałata, pomidor, sos firmowy",
+          "price": 29.9,
+          "imageUrl": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        },
+        {
+          "id": 2,
+          "name": "Cheeseburger",
+          "description": "Wołowina, cheddar, pikle, ketchup i musztarda",
+          "price": 32.9,
+          "imageUrl": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        },
+        {
+          "id": 3,
+          "name": "Chicken Burger",
+          "description": "Chrupiący kurczak, sałata, majonez",
+          "price": 30.9,
+          "imageUrl": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Pizza",
+      "products": [
+        {
+          "id": 4,
+          "name": "Margherita",
+          "description": "Sos pomidorowy, mozzarella, bazylia",
+          "price": 34.9,
+          "imageUrl": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        },
+        {
+          "id": 5,
+          "name": "Pepperoni",
+          "description": "Sos pomidorowy, mozzarella, salami pepperoni",
+          "price": 39.9,
+          "imageUrl": "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        },
+        {
+          "id": 6,
+          "name": "Funghi",
+          "description": "Sos pomidorowy, mozzarella, pieczarki",
+          "price": 37.9,
+          "imageUrl": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Dodatki",
+      "products": [
+        {
+          "id": 7,
+          "name": "Frytki",
+          "description": "Chrupiące frytki ziemniaczane z solą",
+          "price": 12.9,
+          "imageUrl": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        },
+        {
+          "id": 8,
+          "name": "Krążki cebulowe",
+          "description": "Panierowane krążki cebulowe",
+          "price": 14.9,
+          "imageUrl": "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        },
+        {
+          "id": 9,
+          "name": "Sałatka coleslaw",
+          "description": "Kapusta, marchewka i kremowy sos",
+          "price": 10.9,
+          "imageUrl": "https://images.unsplash.com/photo-1625944525533-473f1a3d54e7?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Napoje",
+      "products": [
+        {
+          "id": 10,
+          "name": "Coca-Cola 0,5 l",
+          "description": "Gazowany napój typu cola",
+          "price": 8.9,
+          "imageUrl": "https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=800&q=80",
+          "available": false
+        },
+        {
+          "id": 11,
+          "name": "Woda mineralna 0,5 l",
+          "description": "Woda mineralna niegazowana",
+          "price": 6.9,
+          "imageUrl": "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80",
+          "available": true
+        }
+      ]
+    }
+  ]
+}

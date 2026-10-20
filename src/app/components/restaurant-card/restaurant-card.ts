@@ -1,10 +1,11 @@
 import { Component, model } from '@angular/core';
 import { form } from '@angular/forms/signals';
 import { Restaurant } from '../../models/restaurant.model';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-restaurant-card',
   styleUrl: './restaurant-card.scss',
   templateUrl: './restaurant-card.html',

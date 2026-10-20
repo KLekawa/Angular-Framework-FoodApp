@@ -1,0 +1,10 @@
+@for(category of categories; track category.id){
+    <section>
+        <h2>{{ category.name }} </h2>
+
+        @for(product of category.products; track product.id){
+            <p><a [routerLink]="['productdetails', product.id]">{{ product.name }}</a></p>
+        }
+
+    </section>
+}

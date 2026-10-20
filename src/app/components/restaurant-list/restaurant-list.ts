@@ -1,9 +1,8 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, inject, model, signal } from '@angular/core';
 import { RestaurantCard } from '../restaurant-card/restaurant-card';
-import data from '../../../data/restaurants.json'
 import { form, FormField } from '@angular/forms/signals';
 import { Restaurant } from '../../models/restaurant.model';
-import { count } from 'rxjs';
+import { Restaurants } from '../../services/restaurants';
 
 @Component({
   imports: [RestaurantCard, FormField],
@@ -12,7 +11,8 @@ import { count } from 'rxjs';
   templateUrl: './restaurant-list.html',
 })
 export class RestaurantList {
-  private restaurants = signal(data as Restaurant[]);
+  restaurantsService = inject(Restaurants);
+  private restaurants = this.restaurantsService.getAll();
 
   searchForm = signal({
     nameSearch: "",
@@ -26,7 +26,7 @@ export class RestaurantList {
   private itemsFound = signal(this.restaurants().length);
 
   updateRestaurantData() {
-    let newData = data.filter(r => r.name.toLowerCase().includes((this.searchForm().nameSearch).toLowerCase()));
+    let newData = this.restaurantsService.getAll()().filter(r => r.name.toLowerCase().includes((this.searchForm().nameSearch).toLowerCase()));
     if(this.searchForm().cuisine !== "All"){
       newData = newData.filter(r => r.cuisine == this.searchForm().cuisine);
     }
@@ -36,17 +36,20 @@ export class RestaurantList {
 
     if(this.searchForm().minimumOrderVal !== ""){
       const amount = Number(this.searchForm().minimumOrderVal);
-      newData = newData.filter(r => r.minimumOrderValue <= amount);
+      newData = newData.filter(r => 
+        r.minimumOrderValue !== null && 
+        r.minimumOrderValue <= amount
+      );
     }
 
     if(this.searchForm().sortOption === "rating"){
-      newData.sort((a,b) => b.rating - a.rating);
+      newData.sort((a,b) => (b.rating ?? 0) - (a.rating ?? 0));
     }
     if(this.searchForm().sortOption === "deliveryTime"){
-      newData.sort((a,b) => a.deliveryTimeMin - b.deliveryTimeMin);
+      newData.sort((a,b) => (a.deliveryTimeMin ?? 0) - (b.deliveryTimeMin ?? 0));
     }
     if(this.searchForm().sortOption === "deliveryFee"){
-      newData.sort((a,b) => a.deliveryFee - b.deliveryFee);
+      newData.sort((a,b) => (a.deliveryFee ?? 0) - (b.deliveryFee ?? 0));
     }
 
     this.itemsFound = signal(newData.length);
