@@ -3,11 +3,12 @@ export type Restaurant = {
     name: string,
     description: string,
     cuisine: 'polish' | 'italian' | 'american' | 'thai' | 'chinese' | ""
-    imageUrl: string,
+    imageUrl?: string,
     rating: number | null,
     deliveryTimeMin: number | null,
     deliveryTimeMax: number | null,
     deliveryFee: number | null,
     minimumOrderValue: number | null,
+    address: string
     isActive: boolean | null
 };

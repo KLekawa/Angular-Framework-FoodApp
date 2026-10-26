@@ -1,0 +1,15 @@
+<h2>Restaurant list</h2>
+<div class="actions"><button [routerLink]="['add']">Add restaurant</button></div>
+<div class="foundItems">
+  <p>Restaurant found: {{itemsFound()}}</p>
+</div>
+<section class="list">
+
+  @for(restaurant of restaurants(); track restaurant.id){
+    <app-restaurant-card-admin [restaurant]="restaurant"/>
+  }
+  @empty {
+    <div class="no-restaurants">No restaurants found</div>
+  }
+
+</section>

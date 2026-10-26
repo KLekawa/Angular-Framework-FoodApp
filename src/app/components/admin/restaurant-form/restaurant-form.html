@@ -1,0 +1,23 @@
+<h2>{{ mode() === 'add' ? 'Add restaurant':'Edit restuarant'}}</h2>
+
+<div class="form">
+    <p>Name*: <input type="text" [formField]="form.name"></p>
+    <p>Description*: <input type="text" [formField]="form.description"></p>
+    <p>Cuisine*:
+        <select [formField]="form.cuisine">
+            <option value="polish">Polish</option>
+            <option value="italian">Italian</option>
+            <option value="american">American</option>
+            <option value="thai">Thai</option>
+            <option value="chinese">Chinese</option>
+        </select>
+     </p>
+    <p>Image Url: <input type="text" [formField]="form.imageUrl"></p>
+    <p>Delivery Time Min*: <input type="number" [formField]="form.deliveryTimeMin"></p>
+    <p>Delivery Time Max*: <input type="number" [formField]="form.deliveryTimeMax"></p>
+    <p>Delivery Fee*: <input type="number" [formField]="form.deliveryFee"></p>
+    <p>Minimum Order Value*: <input type="number" [formField]="form.minimumOrderValue"></p>
+    <p>Address*: <input type="text" [formField]="form.address"></p>
+</div>
+
+<button (click)="buttonClick()">{{ mode() === 'add' ? 'Add':'Edit'}}</button>

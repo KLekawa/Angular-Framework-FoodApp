@@ -1,0 +1,7 @@
+<section class="card">
+  <div class="name"><a [routerLink]="['/admin/restaurant/', restaurant().id]">{{restaurant().name}}</a></div>
+  <div class="cuisine">Cuisine: {{restaurant().cuisine}}</div>
+  <div class="rating">Rating: {{restaurant().rating}}/6</div>
+  <div class="is-active">Status: @if(restaurant().isActive){Open} @else {Close}</div>
+  <div>Actions:</div>
+</section>

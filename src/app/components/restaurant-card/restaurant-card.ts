@@ -22,6 +22,7 @@ export class RestaurantCard {
     deliveryTimeMax: null,
     deliveryFee: null,
     minimumOrderValue: null,
+    address: '',
     isActive: null
   });
 

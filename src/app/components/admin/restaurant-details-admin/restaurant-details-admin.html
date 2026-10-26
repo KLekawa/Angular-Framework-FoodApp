@@ -1,0 +1,16 @@
+@let restaurantData = restaurant();
+@if(restaurantData){
+    <h2>Name: {{ restaurantData.name }}</h2>
+    <h3>Description: {{ restaurantData.description}}</h3>
+    <img src="{{ restaurantData.imageUrl}}" />
+    <p>Rating: {{ restaurantData.rating}}/6</p>
+    <p>Delivery time: {{ restaurantData.deliveryTimeMin}} - {{ restaurantData.deliveryTimeMax}} min</p>
+    <p>Delivery Fee: {{ restaurantData.deliveryFee}} USD</p>
+    <p>Address:</p>
+    <p><a [routerLink]="['/restaurant', restaurantData.id, 'menu']">Menu</a></p> 
+} 
+@else {
+    <h3>Nie znaleziono produktów</h3>
+}
+
+
