@@ -1,0 +1,7 @@
+@if(restaurant() !== null && restaurant() !== undefined){
+    <h2>Do you want to change status of the restaurant: {{restaurant()!.name}}</h2>
+    <button (click)="Deactivate(restaurant()!.id)">Confirm</button>
+    <button [routerLink]="['/admin/restaurants']">Return</button>
+} @else {
+    <h2>The restaurant doesn't exist</h2>
+}

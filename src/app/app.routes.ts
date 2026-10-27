@@ -6,6 +6,7 @@ import { ProductDetails } from './components/product-details/product-details';
 import { RestaurantListAdmin } from './components/admin/restaurant-list-admin/restaurant-list-admin';
 import { RestaurantDetailsAdmin } from './components/admin/restaurant-details-admin/restaurant-details-admin';
 import { RestaurantForm } from './components/admin/restaurant-form/restaurant-form';
+import { RestaurantFormConfirmation } from './components/admin/restaurant-form-confirmation/restaurant-form-confirmation';
 
 export const routes: Routes = [
     {
@@ -41,5 +42,9 @@ export const routes: Routes = [
         path: 'admin/restaurants/edit/:id',
         component: RestaurantForm,
         data: {mode: 'edit'}
+    },
+    {
+        path: 'admin/restaurants/deleteConfirmation/:id',
+        component: RestaurantFormConfirmation,
     },
 ];

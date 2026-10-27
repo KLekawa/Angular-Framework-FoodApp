@@ -3,5 +3,9 @@
   <div class="cuisine">Cuisine: {{restaurant().cuisine}}</div>
   <div class="rating">Rating: {{restaurant().rating}}/6</div>
   <div class="is-active">Status: @if(restaurant().isActive){Open} @else {Close}</div>
-  <div>Actions:</div>
+  <div>Actions:
+    <button [routerLink]="['edit', restaurant().id]">Edit</button>
+    <button [routerLink]="['deleteConfirmation', restaurant().id]">Deactivate</button>
+    <!-- <button (click)="Deactivate(restaurant().id)">Deactivate</button> -->
+  </div>
 </section>

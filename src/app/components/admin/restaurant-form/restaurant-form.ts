@@ -54,11 +54,11 @@ export class RestaurantForm {
     } else if(this.mode() === 'edit'){
         let newRestaurant: Restaurant ={
         ...this.restaurant(),
-        id: Number(this.id),
+        id: Number(this.id()),
         rating: null
       }
       this.restaurantsService.editRestaurant(newRestaurant);
-      this.router.navigate(['/admin/restaurant', this.id]);
+      this.router.navigate(['/admin/restaurant', this.id()]);
     }
   }
 
