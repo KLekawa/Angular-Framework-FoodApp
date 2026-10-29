@@ -3,10 +3,7 @@ import { RestaurantList } from './components/restaurant-list/restaurant-list';
 import { RestaurantDetails } from './components/restaurant-details/restaurant-details';
 import { RestaurantMenu } from './components/restaurant-menu/restaurant-menu';
 import { ProductDetails } from './components/product-details/product-details';
-import { RestaurantListAdmin } from './components/admin/restaurant-list-admin/restaurant-list-admin';
-import { RestaurantDetailsAdmin } from './components/admin/restaurant-details-admin/restaurant-details-admin';
-import { RestaurantForm } from './components/admin/restaurant-form/restaurant-form';
-import { RestaurantFormConfirmation } from './components/admin/restaurant-form-confirmation/restaurant-form-confirmation';
+
 
 export const routes: Routes = [
     {
@@ -26,25 +23,20 @@ export const routes: Routes = [
         component: ProductDetails
     },
     {
-        path: 'admin/restaurants',
-        component: RestaurantListAdmin
+        path: 'login',
+        loadComponent: () => import('./components/login/login').then((m)=> m.Login)
     },
     {
-        path: 'admin/restaurant/:id',
-        component: RestaurantDetailsAdmin
+        path: 'register',
+        loadComponent: () => import('./components/register/register').then((m)=> m.Register)
     },
     {
-        path: 'admin/restaurants/add',
-        component: RestaurantForm,
-        data: {mode: 'add'}
+        path: 'profile',
+        loadComponent: () => import('./components/profile/profile').then((m)=> m.Profile)
     },
     {
-        path: 'admin/restaurants/edit/:id',
-        component: RestaurantForm,
-        data: {mode: 'edit'}
-    },
-    {
-        path: 'admin/restaurants/deleteConfirmation/:id',
-        component: RestaurantFormConfirmation,
-    },
+        path: 'admin',
+        loadChildren: () => import('./components/admin/admin.routes').then((m) => m.AdminRoutes),
+    }
+    
 ];

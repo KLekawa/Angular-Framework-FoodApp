@@ -1,16 +1,18 @@
-import { Service, signal } from '@angular/core';
-import dataJson from '../../data/restaurants.json'
+import { inject, Service, signal } from '@angular/core';
 import { Restaurant } from '../models/restaurant.model';
+import dataJson from './../../data/restaurants.json';
+import { LocalStorageService } from '../local-storage-service';
 
 
 @Service()
 export class Restaurants {
     private data = signal<Restaurant[]>([]);
+    storageService = inject(LocalStorageService);
 
     constructor() {
         this.initializeRestaurants();
     }
-    
+
 
     getAll(){
         return this.data;
@@ -22,7 +24,7 @@ export class Restaurants {
 
     add(restaurant: Restaurant){
         this.data.update(restaurants => [...restaurants, restaurant]);
-        this.saveToLocalStorage('restaurants', this.data());
+        this.storageService.saveToLocalStorage('restaurants', this.data());
     }
     
     editRestaurant(restaurant: Restaurant){
@@ -32,7 +34,7 @@ export class Restaurants {
             )
         );
 
-        this.saveToLocalStorage('restaurants', this.data());
+        this.storageService.saveToLocalStorage('restaurants', this.data());
     }
 
     changeStatus(id: number){
@@ -42,26 +44,15 @@ export class Restaurants {
             )
         );
 
-        this.saveToLocalStorage('restaurants', this.data());
+        this.storageService.saveToLocalStorage('restaurants', this.data());
     }
 
-
-    private saveToLocalStorage(key: string, data: any){
-        const jsonData = JSON.stringify(data);
-        localStorage.setItem(key, jsonData);
-    }
-
-    private getFromLocalStorage(key: string){
-        const storedData = localStorage.getItem(key);
-        return storedData ? JSON.parse(storedData) : null;
-    }
-
-    private initializeRestaurants(){
-        const storedData = this.getFromLocalStorage('restaurants');
+        private initializeRestaurants(){
+        const storedData = this.storageService.getFromLocalStorage('restaurants');
 
         if(storedData === null){
             this.data.set(dataJson as Restaurant[]);
-            this.saveToLocalStorage('restaurants', this.data())
+            this.storageService.saveToLocalStorage('restaurants', this.data())
         } else {
             this.data.set(storedData);
         }
