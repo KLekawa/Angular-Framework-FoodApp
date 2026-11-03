@@ -1,7 +1,7 @@
 import { inject, Service, signal } from '@angular/core';
 import { Restaurant } from '../models/restaurant.model';
 import dataJson from './../../data/restaurants.json';
-import { LocalStorageService } from '../local-storage-service';
+import { LocalStorageService } from './local-storage-service';
 
 
 @Service()

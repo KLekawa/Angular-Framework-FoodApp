@@ -1,0 +1,30 @@
+.auth {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth a {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  background-color: #f1f3f5;
+  transition: all 0.2s ease;
+}
+
+.auth a:hover {
+  background-color: #e2e6ea;
+}
+
+.auth a:last-child {
+  background-color: #2563eb;
+  color: white;
+}
+
+.auth a:last-child:hover {
+  background-color: #1d4ed8;
+}

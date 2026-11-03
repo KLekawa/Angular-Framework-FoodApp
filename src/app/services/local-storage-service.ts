@@ -1,7 +1,4 @@
-import { Service, signal } from '@angular/core';
-import { Restaurant } from './models/restaurant.model';
-import dataJson from '../data/restaurants.json'
-
+import { Service } from '@angular/core';
 
 @Service()
 export class LocalStorageService {
@@ -15,7 +12,5 @@ export class LocalStorageService {
         const storedData = localStorage.getItem(key);
         return storedData ? JSON.parse(storedData) : null;
     }
-
-
         
 }

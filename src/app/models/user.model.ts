@@ -1,4 +1,4 @@
-type UserAccountBase = {
+export type UserAccountBase = {
     id: number;
     name: string;
     email: string;
@@ -6,12 +6,12 @@ type UserAccountBase = {
     phone?: string;
 }
 
-enum UserRole {
+export enum UserRole {
     'customer',
     'admin'
 } 
 
-type Address = {
+export type Address = {
   street: string;
   buildingNumber: string;
   apartmentNumber?: string;
@@ -19,13 +19,18 @@ type Address = {
   city: string;
 }
 
-type CustomerAccount = UserAccountBase & {
+export type CustomerAccount = UserAccountBase & {
     role: UserRole.customer;
     deliveryAddress: Address;
 }
 
-type AdminAccount = UserAccountBase & {
+export type AdminAccount = UserAccountBase & {
     role: UserRole.admin;
 }
 
-type UserAccount = CustomerAccount | AdminAccount;
+export type UserAccount = CustomerAccount | AdminAccount;
+
+export type UserSeesion = {
+    userId: number;
+    expiresAt: number;
+}

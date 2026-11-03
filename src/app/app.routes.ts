@@ -24,14 +24,14 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        loadComponent: () => import('./components/login/login').then((m)=> m.Login)
+        loadComponent: () => import('./components/auth/login/login').then((m)=> m.Login)
     },
     {
         path: 'register',
-        loadComponent: () => import('./components/register/register').then((m)=> m.Register)
+        loadComponent: () => import('./components/auth/register/register').then((m)=> m.Register)
     },
     {
-        path: 'profile',
+        path: 'profile/:id',
         loadComponent: () => import('./components/profile/profile').then((m)=> m.Profile)
     },
     {
