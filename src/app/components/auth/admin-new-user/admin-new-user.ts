@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField, required, validate } from '@angular/forms/signals';
 import { UserService } from '../../../services/user-service';
-import { Address, CustomerAccount, UserRole } from '../../../models/user.model';
+import { Address, CustomerAccount, UserAccount, UserRole } from '../../../models/user.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,10 +33,18 @@ export class AdminNewUser {
     required(schema.email);
     required(schema.password);
     required(schema.repeatPassword);
-    required(schema.street);
-    required(schema.buildingNumber);
-    required(schema.postalCode);
-    required(schema.city);
+    required(schema.street, {
+      when: ({ valueOf }) => valueOf(schema.role) === 'customer'
+    });
+    required(schema.buildingNumber, {
+      when: ({ valueOf }) => valueOf(schema.role) === 'customer'
+    });
+    required(schema.postalCode, {
+      when: ({ valueOf }) => valueOf(schema.role) === 'customer'
+    });
+    required(schema.city, {
+      when: ({ valueOf }) => valueOf(schema.role) === 'customer'
+    });
     required(schema.role);
 
     validate(schema.email, ({ value }) => {
@@ -76,19 +84,29 @@ export class AdminNewUser {
           (max, user) => Math.max(max, user.id ?? 0),
           0
         );
-    
-        const customerAccount: CustomerAccount = {
+        
+        const base = {
           id: id+1,
           name: this.registerForm().name,
           email: this.registerForm().email,
           password: this.registerForm().password,
-          phone: this.registerForm().phone || undefined,
-          role: this.registerForm().role === 'admin' ? UserRole.admin : UserRole.customer,
-          deliveryAddress: address
+          phone: this.registerForm().phone || undefined
         }
+
+        const userAccount: UserAccount =
+          this.registerForm().role === 'admin' 
+          ? {
+            ...base,
+            role: UserRole.admin
+          }
+          : {
+            ...base,
+            role: UserRole.customer,
+            deliveryAddress: address
+          }
+        
     
-        this.userService.Create(customerAccount);
+        this.userService.Create(userAccount);
         this.router.navigate(['/admin/users']);
-    //role przypisać
   }
 }

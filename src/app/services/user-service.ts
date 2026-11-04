@@ -1,6 +1,7 @@
 import { inject, Service, signal } from '@angular/core';
 import { LocalStorageService } from './local-storage-service';
 import { AdminAccount, UserAccount, UserRole, UserSeesion } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Service()
 export class UserService {
@@ -8,6 +9,7 @@ export class UserService {
     private users = signal<UserAccount[]>([]); 
     private currentUser = signal<UserAccount | null>(null);
     isLoggedIn = this.currentUser.asReadonly();
+    private router = inject(Router);
 
     constructor(){
         this.initializeUsers();
@@ -48,6 +50,7 @@ export class UserService {
         if(sessionStorage.getItem('user')){
             sessionStorage.removeItem('user');
             this.currentUser.set(null);
+            this.router.navigate(['/restaurants']);
         }
     }
 
@@ -121,8 +124,8 @@ export class UserService {
                 id: 1,
                 role: UserRole.admin,
                 name: 'admin',
-                email: 'email@email.com',
-                password: 'password'
+                email: 'admin',
+                password: 'admin'
             }
             this.users.set([admin]);
             this.storageService.saveToLocalStorage('users', this.users())

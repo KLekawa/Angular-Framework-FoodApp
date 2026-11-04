@@ -1,1 +1,20 @@
-<p>profile works!</p>
+@if(user(); as user){
+    <h2>Profile!</h2>
+    @if(ifEditMode()){
+    <a [routerLink]="['/profile', user.id, 'edit']">Edytuj</a>
+}
+    <p>Name: {{user.name}}</p>
+    <p>email: {{user.email}}</p>
+    <p>Phone: {{user.phone || 'Not provided'}}</p>
+    @if(user.role === UserRole.customer){
+        <h4> Address:</h4>
+            <p>Street: {{user.deliveryAddress.street}}</p>
+            <p>Building Number: {{user.deliveryAddress.buildingNumber}}</p>
+            <p>Apartment Number: {{user.deliveryAddress.apartmentNumber || 'Not provided'}}</p>
+            <p>Postal Code: {{user.deliveryAddress.postalCode}}</p>
+            <p>City: {{user.deliveryAddress.city}}</p>
+        
+    }
+} @else {
+    <h2>Profile not found</h2>
+}

@@ -1,0 +1,25 @@
+@if(user(); as user){
+    <h2>Profile {{ user.name }} edit!</h2>
+
+    @if(user.role === UserRole.admin){
+        <label>Name*: <input type="text" [formField]="form.name"></label><br>
+        <label>Email*: <input type="text" [formField]="form.email"></label><br>
+        <label>Password*: <input type="password" [formField]="form.password"></label><br>
+        <label>Repeat Password*: <input type="password" [formField]="form.repeatPassword"></label><br>
+        <label>Phone: <input type="text" [formField]="form.phone"></label><br>
+        <button (click)="Edit()">Save</button>
+    } @else {
+        <label>Name*: <input type="text" [formField]="form.name"></label><br>
+        <label>Email*: <input type="text" [formField]="form.email"></label><br>
+        <label>Password*: <input type="password" [formField]="form.password"></label><br>
+        <label>Repeat Password*: <input type="password" [formField]="form.repeatPassword"></label><br>
+        <label>Phone: <input type="text" [formField]="form.phone"></label><br>
+        <label>Street*: <input type="text" [formField]="form.street"></label><br>
+        <label>Building Number*: <input type="text" [formField]="form.buildingNumber"></label><br>
+        <label>Apartment Number: <input type="text" [formField]="form.apartmentNumber"></label><br>
+        <label>Postal Code*: <input type="text" [formField]="form.postalCode"></label><br>
+        <label>City*: <input type="text" [formField]="form.city"></label><br>
+        <button (click)="Edit()">Save</button>
+    }
+
+}

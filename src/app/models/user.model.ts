@@ -20,7 +20,7 @@ export type Address = {
 }
 
 export type CustomerAccount = UserAccountBase & {
-    role: UserRole;
+    role: UserRole.customer;
     deliveryAddress: Address;
 }
 

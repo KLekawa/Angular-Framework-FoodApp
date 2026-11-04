@@ -1,1 +1,32 @@
-<p>users works!</p>
+<h2>Users!</h2>
+<table>
+        <tr>
+            <th>Action</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Street</th>
+            <th>Building Number</th>
+            <th>Apartment Number</th>
+            <th>Postal Code</th>
+            <th>City</th>
+            
+        </tr>
+@for(user of users(); track user.id){
+    <tr>
+        <td><button class='deleteBtn' (click)="Delete(user.id)">Delete</button></td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone}}</td>
+    
+    @if(user.role === UserRole.customer){
+        <td>{{user.deliveryAddress.street}}</td>
+        <td>{{user.deliveryAddress.buildingNumber}}</td>
+        <td>{{user.deliveryAddress.apartmentNumber}}</td>
+        <td>{{user.deliveryAddress.postalCode}}</td>
+        <td>{{user.deliveryAddress.city}}</td>
+    }
+    </tr>
+    
+}
+</table>
