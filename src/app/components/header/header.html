@@ -3,9 +3,11 @@
 @if(loggedUser(); as user){
     Witaj {{ user.name }}
     <a [routerLink]="['/profile', user.id]">Profile</a>
+    <button (click)="Logout()">Logout</button>
 } @else {
     <div class="auth">
         <a routerLink="/login">Login </a>
         <a routerLink="/register">Register</a>
+        
     </div>
 }

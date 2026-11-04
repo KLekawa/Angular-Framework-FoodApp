@@ -25,11 +25,9 @@ export const AdminRoutes = [
     {
         path: 'users',
         loadComponent: () => import('./users/users').then((m) => m.Users),
-        // children: [
-        //     {
-        //         path: 'new',
-        //         //component user form
-        //     }
-        // ]
+    },
+    {
+        path: 'users/new',
+        loadComponent: () => import('./../auth/admin-new-user/admin-new-user').then((m) => m.AdminNewUser)
     }
 ]

@@ -40,6 +40,17 @@ export class UserService {
         this.Login(user.email, user.password);
     }
 
+    Create(user: UserAccount){
+        this.Add(user);
+    }
+
+    Logout(){
+        if(sessionStorage.getItem('user')){
+            sessionStorage.removeItem('user');
+            this.currentUser.set(null);
+        }
+    }
+
     ifLoggedIn(){
         const storedUser = sessionStorage.getItem('user');
         if(storedUser === null)

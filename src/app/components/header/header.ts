@@ -12,4 +12,8 @@ export class Header {
   userService = inject(UserService);
 
   loggedUser = this.userService.isLoggedIn;
+
+  Logout(){
+    this.userService.Logout();
+  }
 }
