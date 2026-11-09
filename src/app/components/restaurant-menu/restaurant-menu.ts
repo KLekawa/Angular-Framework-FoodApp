@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { Menu } from '../../services/menu';
+import { Component, computed, inject, input } from '@angular/core';
+import { MenuService } from '../../services/menu-service';
 import { RouterLink } from '@angular/router';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   imports: [RouterLink],
@@ -9,7 +10,20 @@ import { RouterLink } from '@angular/router';
   templateUrl: './restaurant-menu.html',
 })
 export class RestaurantMenu {
-  menuService = inject(Menu);
+  menuService = inject(MenuService);
+  cartService = inject(CartService);
+  id = input<string>();
 
-  categories = this.menuService.getCategories();
+  categories = computed(() =>{
+    const id = this.id();
+
+    if(id === undefined)
+      return undefined;
+
+    return this.menuService.GetCategoriesById(Number(id));
+  })
+
+  AddToCart(productId: number){
+    this.cartService.AddToCart(Number(this.id()), productId);
+  }
 }

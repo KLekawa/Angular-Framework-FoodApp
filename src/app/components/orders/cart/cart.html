@@ -1,0 +1,55 @@
+<h2>Cart</h2>
+@if(cart(); as cart){
+    <h3>From the ....{{cart.restaurantId}}</h3>
+    <div class="cart-items">
+    @for (item of cart.items; track item.productId) {    
+        @if(menuService.GetProductDetails(cart.restaurantId, item.productId); as product){
+                <div class="cart-item">
+                    <span class="item-name">{{product.name}}</span>
+                    <span class="item-price">{{product.price | number:'1.2-2'}} USD</span>
+
+                    <div class="item-quantity">
+                    <button type="button" (click)="DecreaseQuantity(item.productId)">−</button>
+                    <input #quantityInput type="number" min="1" [value]="item.quantity" (change)="cartService.ChangeQuantity(item.productId, quantityInput.valueAsNumber)"/>
+                    <button type="button" (click)="IncreaseQuantity(item.productId)">+</button>
+                    </div>
+
+                    <span class="item-total">{{product.price * item.quantity | number:'1.2-2' }} USD</span>
+
+                    <button type="button" class="item-remove" (click)="cartService.RemoveFromCart(item.productId)">✕</button>
+                </div>
+            
+        }
+    }
+    </div>
+
+    <hr>
+    <h2>Order Summary</h2>
+        <div class="summary">
+            <div class="summary">
+                <div class="summary-row">
+                    <span>Order subtotal</span>
+                    <span>{{cartService.GetTotalPrice() | number:'1.2-2' }} USD</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Delivery fee</span>
+                    <span>{{restaurantDeliveryFee() | number:'1.2-2'}} USD</span>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-row summary-total">
+                    <span>Total to pay</span>
+                    <span>{{cartService.GetTotalPrice() + (restaurantDeliveryFee() ?? 0) | number:'1.2-2'}} USD</span>
+                </div>
+
+                <button type="button" class="checkout-btn">
+                Proceed to Checkout
+                <span>→</span>
+                </button>
+            </div>
+        </div>
+} @else {
+    <h3>Cart is empty!</h3>
+}

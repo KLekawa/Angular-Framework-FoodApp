@@ -2,7 +2,7 @@ import { Component, inject, model, signal } from '@angular/core';
 import { RestaurantCard } from '../restaurant-card/restaurant-card';
 import { form, FormField } from '@angular/forms/signals';
 import { Restaurant } from '../../models/restaurant.model';
-import { Restaurants } from '../../services/restaurants';
+import { RestaurantsService } from '../../services/restaurants-service';
 
 @Component({
   imports: [RestaurantCard, FormField],
@@ -11,8 +11,8 @@ import { Restaurants } from '../../services/restaurants';
   templateUrl: './restaurant-list.html',
 })
 export class RestaurantList {
-  restaurantsService = inject(Restaurants);
-  private restaurants = this.restaurantsService.getAll();
+  restaurantsService = inject(RestaurantsService);
+  private restaurants = this.restaurantsService.GetAll();
 
   searchForm = signal({
     nameSearch: "",
@@ -26,7 +26,7 @@ export class RestaurantList {
   private itemsFound = signal(this.restaurants().length);
 
   updateRestaurantData() {
-    let newData = this.restaurantsService.getAll()().filter(r => r.name.toLowerCase().includes((this.searchForm().nameSearch).toLowerCase()));
+    let newData = this.restaurantsService.GetAll()().filter(r => r.name.toLowerCase().includes((this.searchForm().nameSearch).toLowerCase()));
     if(this.searchForm().cuisine !== "All"){
       newData = newData.filter(r => r.cuisine == this.searchForm().cuisine);
     }

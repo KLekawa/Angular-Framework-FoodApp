@@ -1,13 +1,20 @@
-<h1>Food App</h1>
+<header class="header">
+  <div class="header-left">
+    <h1 routerLink="/restaurants">Food App</h1>
 
-@if(loggedUser(); as user){
-    Witaj {{ user.name }}
-    <a [routerLink]="['/profile', user.id]">Profile</a>
-    <button (click)="Logout()">Logout</button>
-} @else {
-    <div class="auth">
-        <a routerLink="/login">Login </a>
+    @if(loggedUser(); as user) {
+      <span>Witaj, {{ user.name }}</span>
+      <a [routerLink]="['/profile', user.id]">Profile</a>
+      <button (click)="Logout()">Logout</button>
+    } @else {
+      <div class="auth">
+        <a routerLink="/login">Login</a>
         <a routerLink="/register">Register</a>
-        
-    </div>
-}
+      </div>
+    }
+  </div>
+
+  <a routerLink="/cart" class="cart-button">
+    Cart
+  </a>
+</header>

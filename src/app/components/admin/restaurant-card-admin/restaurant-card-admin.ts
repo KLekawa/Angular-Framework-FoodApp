@@ -1,7 +1,7 @@
 import { Component, inject, model } from '@angular/core';
 import { Restaurant } from '../../../models/restaurant.model';
 import { RouterLink } from '@angular/router';
-import { Restaurants } from '../../../services/restaurants';
+import { RestaurantsService } from '../../../services/restaurants-service';
 
 @Component({
   imports: [RouterLink],
@@ -10,7 +10,7 @@ import { Restaurants } from '../../../services/restaurants';
   templateUrl: './restaurant-card-admin.html',
 })
 export class RestaurantCardAdmin {
-  restaurantsService = inject(Restaurants);
+  restaurantsService = inject(RestaurantsService);
   
    restaurant = model<Restaurant>({
     id: null,

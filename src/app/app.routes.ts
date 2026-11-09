@@ -21,7 +21,7 @@ export const routes: Routes = [
         component: RestaurantMenu
     },
     {
-        path: 'restaurant/:id/menu/productdetails/:id',
+        path: 'restaurant/:restaurantId/menu/productdetails/:productId',
         component: ProductDetails
     },
     {
@@ -44,7 +44,12 @@ export const routes: Routes = [
     {
         path: 'admin',
         canActivate: [adminGuard],
+        loadComponent: () => import('./components/admin/admin').then((m) => m.Admin),
         loadChildren: () => import('./components/admin/admin.routes').then((m) => m.AdminRoutes),
+    },
+    {
+        path: 'cart',
+        loadComponent: () => import('./components/orders/cart/cart').then((m) => m.Cart)
     }
     
 ];

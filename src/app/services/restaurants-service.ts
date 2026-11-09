@@ -1,11 +1,11 @@
 import { inject, Service, signal } from '@angular/core';
 import { Restaurant } from '../models/restaurant.model';
-import dataJson from './../../data/restaurants.json';
+import dataJson from '../../data/restaurants.json';
 import { LocalStorageService } from './local-storage-service';
 
 
 @Service()
-export class Restaurants {
+export class RestaurantsService {
     private data = signal<Restaurant[]>([]);
     storageService = inject(LocalStorageService);
 
@@ -14,20 +14,20 @@ export class Restaurants {
     }
 
 
-    getAll(){
+    GetAll(){
         return this.data;
     }
 
-    getById(id: number){
+    GetById(id: number){
         return this.data().find(r => r.id === id);
     }
 
-    add(restaurant: Restaurant){
+    Add(restaurant: Restaurant){
         this.data.update(restaurants => [...restaurants, restaurant]);
         this.storageService.saveToLocalStorage('restaurants', this.data());
     }
     
-    editRestaurant(restaurant: Restaurant){
+    EditRestaurant(restaurant: Restaurant){
         this.data.update(restaurants =>
             restaurants.map(r =>
                 r.id === restaurant.id ? restaurant : r
@@ -37,7 +37,7 @@ export class Restaurants {
         this.storageService.saveToLocalStorage('restaurants', this.data());
     }
 
-    changeStatus(id: number){
+    ChangeStatus(id: number){
         this.data.update(restaurants =>
             restaurants.map(r =>
                 r.id === id ? {...r, isActive: !r.isActive} : r
@@ -47,7 +47,7 @@ export class Restaurants {
         this.storageService.saveToLocalStorage('restaurants', this.data());
     }
 
-        private initializeRestaurants(){
+    private initializeRestaurants(){
         const storedData = this.storageService.getFromLocalStorage('restaurants');
 
         if(storedData === null){

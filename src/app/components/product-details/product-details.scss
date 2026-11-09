@@ -1,3 +1,31 @@
 img{
     width: 250px;
 }
+
+.add-to-cart {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+
+.add-to-cart:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.add-to-cart:active {
+  transform: scale(0.97);
+}
+
+.add-to-cart:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+}

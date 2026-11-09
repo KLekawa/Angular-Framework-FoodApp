@@ -1,7 +1,7 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { Restaurant } from '../../../models/restaurant.model';
 import { form, max, min, minLength, required, validate, FormField } from '@angular/forms/signals';
-import { Restaurants } from '../../../services/restaurants';
+import { RestaurantsService } from '../../../services/restaurants-service';
 import { Router } from '@angular/router';
 
 
@@ -17,7 +17,7 @@ export class RestaurantForm {
   private router = inject(Router);
   mode = input<'add' | 'edit'>();
   id = input<string>();
-  restaurantsService = inject(Restaurants);
+  restaurantsService = inject(RestaurantsService);
 
   restaurant = signal<RestaurantFormData>({
     name: '',
@@ -39,7 +39,7 @@ export class RestaurantForm {
     }
     
     if(this.mode() === 'add'){
-      let maxId = this.restaurantsService.getAll()().reduce(
+      let maxId = this.restaurantsService.GetAll()().reduce(
         (max, restaurant) => Math.max(max, restaurant.id ?? 0),
         0
       );
@@ -49,7 +49,7 @@ export class RestaurantForm {
         id: newId,
         rating: null
       }
-      this.restaurantsService.add(newRestaurant);
+      this.restaurantsService.Add(newRestaurant);
       this.router.navigate(['/admin/restaurant', newId]);
     } else if(this.mode() === 'edit'){
         let newRestaurant: Restaurant ={
@@ -57,7 +57,7 @@ export class RestaurantForm {
         id: Number(this.id()),
         rating: null
       }
-      this.restaurantsService.editRestaurant(newRestaurant);
+      this.restaurantsService.EditRestaurant(newRestaurant);
       this.router.navigate(['/admin/restaurant', this.id()]);
     }
   }

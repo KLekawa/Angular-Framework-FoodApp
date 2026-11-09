@@ -1,5 +1,5 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { Restaurants } from '../../../services/restaurants';
+import { RestaurantsService } from '../../../services/restaurants-service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,10 +9,10 @@ import { RouterLink } from '@angular/router';
   templateUrl: './restaurant-details-admin.html',
 })
 export class RestaurantDetailsAdmin {
-    restaurantsService = inject(Restaurants);
+    restaurantsService = inject(RestaurantsService);
   readonly id = input.required<string>();
 
   restaurant = computed( () =>{
-    return this.restaurantsService.getById(Number(this.id()))
+    return this.restaurantsService.GetById(Number(this.id()))
   })
 }

@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, model } from '@angular/core';
 import { Restaurant } from '../../../models/restaurant.model';
 import { Router, RouterLink } from '@angular/router';
-import { Restaurants } from '../../../services/restaurants';
+import { RestaurantsService } from '../../../services/restaurants-service';
 
 @Component({
   imports: [RouterLink],
@@ -10,7 +10,7 @@ import { Restaurants } from '../../../services/restaurants';
   templateUrl: './restaurant-form-confirmation.html',
 })
 export class RestaurantFormConfirmation {
-  restaurantsService = inject(Restaurants);
+  restaurantsService = inject(RestaurantsService);
     private router = inject(Router);
   id = input();
 
@@ -19,7 +19,7 @@ export class RestaurantFormConfirmation {
     // if(id === undefined) 
     //   return undefined;
     
-    return this.restaurantsService.getById(Number(this.id()));
+    return this.restaurantsService.GetById(Number(this.id()));
   }) 
 
 
@@ -28,7 +28,7 @@ export class RestaurantFormConfirmation {
       return;
     }
 
-    this.restaurantsService.changeStatus(id);
+    this.restaurantsService.ChangeStatus(id);
     this.router.navigate(['/admin/restaurants']);
   }
 }

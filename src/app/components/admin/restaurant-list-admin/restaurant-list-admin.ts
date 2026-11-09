@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Restaurants } from '../../../services/restaurants';
+import { RestaurantsService } from '../../../services/restaurants-service';
 import { RestaurantCard } from '../../restaurant-card/restaurant-card';
 import { RestaurantCardAdmin } from '../restaurant-card-admin/restaurant-card-admin';
 import { RouterLink } from '@angular/router';
@@ -11,8 +11,8 @@ import { RouterLink } from '@angular/router';
   templateUrl: './restaurant-list-admin.html',
 })
 export class RestaurantListAdmin {
-  restaurantsService = inject(Restaurants);
-  private restaurants = this.restaurantsService.getAll();
+  restaurantsService = inject(RestaurantsService);
+  private restaurants = this.restaurantsService.GetAll();
 
   private itemsFound = signal(this.restaurants().length);
 

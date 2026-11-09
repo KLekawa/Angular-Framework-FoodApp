@@ -1,9 +1,10 @@
-@if(product() !== undefined && product() !== null){
-    <h2>{{product()?.name}}</h2>
-    <h3>{{product()?.description}}</h3>
-    <p>Cena: {{product()?.price}} USD</p>
-    <img [src]="product()?.imageUrl"/>
-    <p>Status: @if(product()?.available){Available} @else{Not available} </p>
+@if(product(); as product){
+    <h2>{{product.name}}</h2>
+    <h3>{{product.description}}</h3>
+    <p>Cena: {{product.price}} USD</p>
+    <img [src]="product.imageUrl"/>
+    <p>Status: @if(product.available){Available} @else{Not available} </p>
+     <button class="add-to-cart" (click)="AddToCart(product.id)">Dodaj do koszyka!</button>
 } @else {
     <p>Product not found</p>
 }
