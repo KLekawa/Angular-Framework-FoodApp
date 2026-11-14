@@ -1,1 +1,67 @@
-<p>checkout works!</p>
+<h2>Checkout!</h2>
+
+<label>First Name*: <input type="text" [formField]="form.firstname"></label>
+@if(submitted() || form.firstname().touched() && form.firstname().invalid()){
+    <span class="error">{{form.firstname().errors()[0]?.message}}</span>
+}
+<br>
+
+<label>Last Name*: <input type="text" [formField]="form.lastname"></label>
+@if(submitted() || form.lastname().touched() && form.lastname().invalid()){
+    <span class="error">{{form.lastname().errors()[0]?.message}}</span>
+}
+<br>
+
+<label>Email*: <input type="email" [formField]="form.email"></label>
+@if(submitted() || form.email().touched() && form.email().invalid()){
+    <span class="error">{{form.email().errors()[0]?.message}}</span>
+}
+
+<br>
+<label>Phone*: <input type="text" [formField]="form.phone"></label>
+@if(submitted() || form.phone().touched() && form.phone().invalid()){
+    <span class="error">{{form.phone().errors()[0]?.message}}</span>
+}
+<br>
+
+<label>Street*: <input type="text" [formField]="form.street"></label>
+@if(submitted() || form.street().touched() && form.street().invalid()){
+    <span class="error">{{form.street().errors()[0]?.message}}</span>
+}
+<br>
+
+<label>Building Number*: <input type="text" [formField]="form.buildingNumber"></label>
+@if(submitted() || form.buildingNumber().touched() && form.buildingNumber().invalid()){
+    <span class="error">{{form.buildingNumber().errors()[0]?.message}}</span>
+}
+<br>
+
+<label>Apartament Number: <input type="text" [formField]="form.apartmentNumber"></label><br>
+
+
+<label>Postal Code*: <input type="text" [formField]="form.postalCode"></label>
+@if(submitted() || form.postalCode().touched() && form.postalCode().invalid()){
+    <span class="error">{{form.postalCode().errors()[0]?.message}}</span>
+}
+<br>
+
+<label>City*: <input type="text" [formField]="form.city"></label>
+@if(submitted() || form.city().touched() && form.city().invalid()){
+    <span class="error">{{form.city().errors()[0]?.message}}</span>
+}
+<br>
+
+<label>Payment Method*
+    <select [formField]="form.paymentMethod">
+        <option value="creditAndDebitCard">Credit & Debit Cards</option>
+        <option value="digitalWallets">Digital Wallets</option>
+        <option value="blik">Blik</option>
+        <option value="standardBankTransfer">Standard Bank Transfer</option>
+    </select>
+</label>
+@if(submitted() || form.paymentMethod().touched() && form.paymentMethod().invalid()){
+    <span class="error">{{form.paymentMethod().errors()[0]?.message}}</span>
+}
+<br>
+
+<button (click)="Checkout()">Checkout</button>

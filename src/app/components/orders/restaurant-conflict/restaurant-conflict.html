@@ -1,0 +1,21 @@
+@if (cartService.showRestaurantConflict()) {
+  <div class="modal-overlay">
+    <div class="modal">
+      <h2>Products from another restaurant</h2>
+
+      <p>
+        Your cart already contains products from another restaurant.
+      </p>
+
+      <div class="modal-actions">
+        <button class="cancel-btn" (click)="cartService.CancelRestaurantConflict()">
+          Cancel adding a new product
+        </button>
+
+        <button class="confirm-btn" (click)="cartService.ConfirmRestaurantConflict()">
+          Cancel the current order and add a new order
+        </button>
+      </div>
+    </div>
+  </div>
+}

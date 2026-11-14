@@ -44,7 +44,7 @@
                     <span>{{cartService.GetTotalPrice() + (restaurantDeliveryFee() ?? 0) | number:'1.2-2'}} USD</span>
                 </div>
 
-                <button type="button" class="checkout-btn">
+                <button type="button" class="checkout-btn" routerLink="/checkout">
                 Proceed to Checkout
                 <span>→</span>
                 </button>

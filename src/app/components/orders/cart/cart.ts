@@ -3,10 +3,11 @@ import { CartService } from '../../../services/cart-service';
 import { MenuService } from '../../../services/menu-service';
 import { DecimalPipe } from '@angular/common';
 import { RestaurantsService } from '../../../services/restaurants-service';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   selector: 'app-cart',
   styleUrl: './cart.scss',
   templateUrl: './cart.html',

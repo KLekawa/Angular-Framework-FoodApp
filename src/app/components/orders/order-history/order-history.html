@@ -1,0 +1,58 @@
+<h2>Order history</h2>
+
+<div class="orders-list">
+  @if (userOrders(); as orders) {
+    @for (order of orders; track order.orderId) {
+
+      <a class="order-card"
+         [routerLink]="['/order-details', order.orderId]">
+
+        <div class="order-header">
+          <div class="order-heading">
+            <h3>Order #{{ order.orderId }}</h3>
+            <span class="order-date">
+              {{ order.createdAt | date:'dd.MM.yyyy, HH:mm' }}
+            </span>
+          </div>
+
+          <span class="order-status">
+            {{ OrderStatus[order.status] }}
+          </span>
+        </div>
+
+        <div class="order-body">
+          <div class="order-info">
+            <span class="info-label">Products</span>
+            <span class="info-value">
+              {{ order.orderItems.length }}
+            </span>
+          </div>
+
+          <div class="order-info">
+            <span class="info-label">Subtotal</span>
+            <span class="info-value">
+              {{ order.subtotal | number:'1.2-2' }} USD
+            </span>
+          </div>
+
+          <div class="order-info total">
+            <span class="info-label">Total</span>
+            <span class="info-value">
+              {{ order.totalPrice | number:'1.2-2' }} USD
+            </span>
+          </div>
+
+          <span class="order-arrow">→</span>
+        </div>
+
+      </a>
+
+    } @empty {
+      <div class="empty-orders">
+        <h3>No orders yet</h3>
+        <p>Your completed orders will appear here.</p>
+        <a routerLink="/restaurants">Browse restaurants</a>
+      </div>
+    }
+  }
+</div>

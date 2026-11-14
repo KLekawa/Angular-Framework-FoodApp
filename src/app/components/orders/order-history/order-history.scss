@@ -1,0 +1,155 @@
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.order-card {
+  display: block;
+  padding: 22px 26px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.order-card:hover {
+  border-color: #93b4ff;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
+  transform: translateY(-2px);
+}
+
+.order-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.order-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.order-heading h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.order-date {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.order-status {
+  padding: 7px 12px;
+  background: #eff6ff;
+  color: #2563eb;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.order-body {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  padding-top: 18px;
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-label {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.info-value {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.order-info.total .info-value {
+  color: #0f172a;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.order-arrow {
+  margin-left: auto;
+  color: #2563eb;
+  font-size: 25px;
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+
+.order-card:hover .order-arrow {
+  transform: translateX(4px);
+}
+
+.empty-orders {
+  text-align: center;
+  padding: 45px 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.empty-orders h3 {
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+.empty-orders p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.empty-orders a {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 11px 18px;
+  color: #ffffff;
+  background: #2563eb;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.empty-orders a:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 600px) {
+  .order-card {
+    padding: 18px;
+  }
+
+  .order-body {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .order-info {
+    min-width: 90px;
+  }
+
+  .order-arrow {
+    margin-left: auto;
+  }
+}

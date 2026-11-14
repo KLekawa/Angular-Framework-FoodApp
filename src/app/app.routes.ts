@@ -5,6 +5,7 @@ import { RestaurantMenu } from './components/restaurant-menu/restaurant-menu';
 import { ProductDetails } from './components/product-details/product-details';
 import { adminGuard } from './guards/admin-guard';
 import { profileEditGuard } from './guards/profile-edit-guard';
+import { checkoutGuard } from './guards/checkout-guard';
 
 
 export const routes: Routes = [
@@ -50,6 +51,19 @@ export const routes: Routes = [
     {
         path: 'cart',
         loadComponent: () => import('./components/orders/cart/cart').then((m) => m.Cart)
+    },
+    {
+        path: 'checkout',
+        canActivate: [checkoutGuard],
+        loadComponent: () => import('./components/orders/checkout/checkout').then((m) => m.Checkout)
+    },
+    {
+        path: 'order-history/:userId',
+        loadComponent: () => import('./components/orders/order-history/order-history').then((m) => m.OrderHistory)
+    },
+    {
+        path: 'order-details/:orderId',
+        loadComponent: () => import('./components/orders/order-details/order-details').then((m) => m.OrderDetails)
     }
     
 ];

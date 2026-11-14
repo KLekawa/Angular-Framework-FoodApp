@@ -8,6 +8,11 @@ export class CartService {
     private storageService = inject(LocalStorageService);
     private data = signal<Cart | null>(null);
     private menuService = inject(MenuService);
+    showRestaurantConflict = signal(false);
+    pendingProduct = signal<{
+        restaurantId: number;
+        productId: number;
+    } | null>(null);
 
     constructor(){
         this.InitializeCart();
@@ -18,6 +23,15 @@ export class CartService {
     }
 
     AddToCart(restaurantId:number, productId: number){
+        if(this.data() !== null){
+            if(restaurantId !== this.data()?.restaurantId){
+                this.pendingProduct.set({restaurantId, productId});
+                this.showRestaurantConflict.set(true);
+                return;
+            }
+                
+        }
+
         this.data.update( cart =>{
             if(cart === null){
                 return {
@@ -47,6 +61,24 @@ export class CartService {
         })
         this.storageService.saveToLocalStorage('cart', this.data());
        
+    }
+
+    CancelRestaurantConflict(){
+        this.pendingProduct.set(null);
+        this.showRestaurantConflict.set(false);
+    }
+
+    ConfirmRestaurantConflict(){
+        const product = this.pendingProduct();
+        if(!product)
+            return;
+        this.data.set(null);
+        this.storageService.removeFromLocalStorage('cart');
+
+        this.pendingProduct.set(null);
+        this.showRestaurantConflict.set(false);
+
+        this.AddToCart(product.restaurantId, product.productId);
     }
 
     RemoveFromCart(productId: number){
@@ -90,6 +122,11 @@ export class CartService {
         })
 
         this.storageService.saveToLocalStorage('cart', this.data());
+    }
+
+    ClearCart(){
+        this.data.set(null);
+        this.storageService.removeFromLocalStorage('cart');
     }
 
     GetTotalPrice(){
