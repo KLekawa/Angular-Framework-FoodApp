@@ -1,0 +1,72 @@
+<h2>Admin order history</h2>
+
+@if (userOrders !== null) {
+  <div class="filter">
+    <label>Status: 
+      <select  [formField]='form.orderStatus' (change)="FilterStatusChange()">
+        <option value="All">All</option>
+        <option value="New">New</option>
+        <option value="Accepted">Accepted</option>
+        <option value="InPreparation">InPreparation</option>
+        <option value="Ready">Ready</option>
+        <option value="InDelivery">InDeliver</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="orders-list">
+  @for (order of userOrders; track order.orderId) {
+
+    <a class="order-card"
+        [routerLink]="['/admin/order-details', order.orderId]">
+
+      <div class="order-header">
+        <div class="order-heading">
+          <h3>Order #{{ order.orderId }}</h3>
+          <span class="order-date">
+            {{ order.createdAt | date:'dd.MM.yyyy, HH:mm' }}
+          </span>
+        </div>
+
+        <span class="order-status">
+          {{ OrderStatus[order.status] }}
+        </span>
+      </div>
+
+      <div class="order-body">
+        <div class="order-info">
+          <span class="info-label">Products</span>
+          <span class="info-value">
+            {{ order.orderItems.length }}
+          </span>
+        </div>
+
+        <div class="order-info">
+          <span class="info-label">Subtotal</span>
+          <span class="info-value">
+            {{ order.subtotal | number:'1.2-2' }} USD
+          </span>
+        </div>
+
+        <div class="order-info total">
+          <span class="info-label">Total</span>
+          <span class="info-value">
+            {{ order.totalPrice | number:'1.2-2' }} USD
+          </span>
+        </div>
+
+        <span class="order-arrow">→</span>
+      </div>
+
+    </a>
+
+  } @empty {
+    <div class="empty-orders">
+      <h3>No orders found</h3>
+      <a class='reset' (click)="ResetStatus()">Reset filters</a>
+    </div>
+  }
+  </div>
+}

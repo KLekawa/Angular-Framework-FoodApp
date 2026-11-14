@@ -1,6 +1,6 @@
 <h2>Cart</h2>
 @if(cart(); as cart){
-    <h3>From the ....{{cart.restaurantId}}</h3>
+    <h3>From the {{restaurantName()}}</h3>
     <div class="cart-items">
     @for (item of cart.items; track item.productId) {    
         @if(menuService.GetProductDetails(cart.restaurantId, item.productId); as product){

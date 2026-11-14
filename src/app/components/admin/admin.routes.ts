@@ -29,5 +29,13 @@ export const AdminRoutes = [
     {
         path: 'users/new',
         loadComponent: () => import('./../auth/admin-new-user/admin-new-user').then((m) => m.AdminNewUser)
+    },
+    {
+        path: 'order-list',
+        loadComponent: () => import('./order-list-admin/order-list-admin').then((m) => m.OrderHistory)
+    },
+    {
+        path: 'order-details/:orderId',
+        loadComponent: () => import('./order-details-admin/order-details-admin').then((m) => m.OrderDetailsAdmin)
     }
 ]

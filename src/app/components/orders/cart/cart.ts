@@ -24,6 +24,14 @@ export class Cart {
 
     return this.restaurantService.GetById(restaurantId)?.deliveryFee;
   }) 
+
+  restaurantName = computed (() =>{
+    const restaurantId = this.cart()?.restaurantId;
+    if(restaurantId === undefined || restaurantId === null)
+      return undefined
+
+    return this.restaurantService.GetById(restaurantId)?.name;
+  }) 
   
   cart = computed(() => this.cartService.GetCart()); 
 
