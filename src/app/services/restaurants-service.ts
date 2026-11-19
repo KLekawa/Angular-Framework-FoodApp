@@ -1,60 +1,93 @@
-import { inject, Service, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import { Restaurant } from '../models/restaurant.model';
 import dataJson from '../../data/restaurants.json';
-import { LocalStorageService } from './local-storage-service';
+import { HttpClient, httpResource } from '@angular/common/http';
 
 
 @Service()
 export class RestaurantsService {
-    private data = signal<Restaurant[]>([]);
-    storageService = inject(LocalStorageService);
+    private readonly http = inject(HttpClient);
+    private readonly apiUrl = 'http://localhost:3000/restaurants';
+    private readonly listResource = httpResource<Restaurant[]>(() => this.apiUrl);
+    private readonly selectedId = signal<number | undefined>(undefined);
 
-    constructor() {
-        this.initializeRestaurants();
-    }
-
+    private readonly detailResource = httpResource<Restaurant>(
+        () =>  {
+            const id = this.selectedId();
+            return id === undefined ? undefined : `${this.apiUrl}/${id}`;
+        }
+    );
 
     GetAll(){
-        return this.data;
+        return this.listResource;
     }
 
     GetById(id: number){
-        return this.data().find(r => r.id === id);
+        this.selectedId.set(id);
+        return this.detailResource;
     }
 
-    Add(restaurant: Restaurant){
-        this.data.update(restaurants => [...restaurants, restaurant]);
-        this.storageService.saveToLocalStorage('restaurants', this.data());
-    }
+    readonly restaurants = this.listResource.value;
+    readonly isLoading = this.listResource.isLoading;
+    readonly error = computed(() => 
+        this.listResource.error() === undefined
+        ? null
+        : "Could get restaurants, check API connections"
+    )
     
-    EditRestaurant(restaurant: Restaurant){
-        this.data.update(restaurants =>
-            restaurants.map(r =>
-                r.id === restaurant.id ? restaurant : r
-            )
-        );
-
-        this.storageService.saveToLocalStorage('restaurants', this.data());
+    Add(restaurant: Restaurant){
+        return this.http
+        .post<Restaurant>(this.apiUrl, restaurant);
     }
+    // private data = signal<Restaurant[]>([]);
+    // storageService = inject(LocalStorageService);
 
-    ChangeStatus(id: number){
-        this.data.update(restaurants =>
-            restaurants.map(r =>
-                r.id === id ? {...r, isActive: !r.isActive} : r
-            )
-        );
+    // constructor() {
+    //     this.initializeRestaurants();
+    // }
 
-        this.storageService.saveToLocalStorage('restaurants', this.data());
-    }
 
-    private initializeRestaurants(){
-        const storedData = this.storageService.getFromLocalStorage('restaurants');
+    // GetAll(){
+    //     return this.data;
+    // }
 
-        if(storedData === null){
-            this.data.set(dataJson as Restaurant[]);
-            this.storageService.saveToLocalStorage('restaurants', this.data())
-        } else {
-            this.data.set(storedData);
-        }
-    }
+    // GetById(id: number){
+    //     return this.data().find(r => r.id === id);
+    // }
+
+    // Add(restaurant: Restaurant){
+    //     this.data.update(restaurants => [...restaurants, restaurant]);
+    //     this.storageService.saveToLocalStorage('restaurants', this.data());
+    // }
+    
+    // EditRestaurant(restaurant: Restaurant){
+    //     this.data.update(restaurants =>
+    //         restaurants.map(r =>
+    //             r.id === restaurant.id ? restaurant : r
+    //         )
+    //     );
+
+    //     this.storageService.saveToLocalStorage('restaurants', this.data());
+    // }
+
+    // ChangeStatus(id: number){
+    //     this.data.update(restaurants =>
+    //         restaurants.map(r =>
+    //             r.id === id ? {...r, isActive: !r.isActive} : r
+    //         )
+    //     );
+
+    //     this.storageService.saveToLocalStorage('restaurants', this.data());
+    // }
+
+    // private initializeRestaurants(){
+    //     const storedData = this.storageService.getFromLocalStorage('restaurants');
+
+    //     if(storedData === null){
+    //         this.data.set(dataJson as Restaurant[]);
+    //         this.storageService.saveToLocalStorage('restaurants', this.data())
+    //     } else {
+    //         this.data.set(storedData);
+    //     }
+    // }
 }
