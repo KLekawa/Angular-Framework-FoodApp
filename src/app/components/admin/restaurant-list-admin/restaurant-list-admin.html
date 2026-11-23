@@ -3,13 +3,19 @@
 <div class="foundItems">
   <p>Restaurant found: {{itemsFound()}}</p>
 </div>
-<section class="list">
+@if(loading()){
+  <h3>Loading...</h3>
+} @else if(error()){
+  <h3>Failed to load restaurants</h3>
+} @else {
+  <section class="list">
 
-  @for(restaurant of restaurants(); track restaurant.id){
-    <app-restaurant-card-admin [restaurant]="restaurant"/>
-  }
-  @empty {
-    <div class="no-restaurants">No restaurants found</div>
-  }
+    @for(restaurant of restaurants(); track restaurant.id){
+      <app-restaurant-card-admin [restaurant]="restaurant"/>
+    }
+    @empty {
+      <div class="no-restaurants">No restaurants found</div>
+    }
 
-</section>
+  </section>
+}

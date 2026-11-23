@@ -24,6 +24,12 @@ export class Checkout {
   private menuService = inject(MenuService);
   private router = inject(Router);
 
+  menuLoading = this.menuService.loading;
+  menuError = this.menuService.error;
+
+  restaurantLoading = this.restaurantService.detailsLoading;
+  restaurantError = this.restaurantService.detailsError;
+
   checkoutForm = signal({
     firstname: '',
     lastname: '',
@@ -117,16 +123,14 @@ export class Checkout {
       paymentMethod: this.checkoutForm().paymentMethod,
     }
     const subtotal = this.cartService.GetTotalPrice();
-    const deliveryFee = this.restaurantService.GetById(cart.restaurantId)?.deliveryFee;
-
-    if(deliveryFee === null)
+    const deliveryFee = this.restaurantService.selectedRestaurant()?.deliveryFee;
+    
+    if(deliveryFee == null)
       return
 
+
     const orderItems: OrderItem[] = cart.items.map(item => {
-      const product = this.menuService.GetProductDetails(
-        cart.restaurantId,
-        item.productId
-      );
+      const product = this.menuService.FindProduct(item.productId);
 
       return {
         productId: item.productId,
@@ -135,6 +139,11 @@ export class Checkout {
         quantity: item.quantity
       };
     });
+
+    if (orderItems.some(item => item.name === '')) {
+      console.error('Nie udało się pobrać wszystkich produktów');
+      return;
+    }
 
     const order: Omit<Order, 'orderId' | 'userId' | 'createdAt' | 'status'> = {
       restaurantId: cart.restaurantId,
@@ -146,9 +155,18 @@ export class Checkout {
     }
   
     const orderResponse = this.orderService.CreateOrder(order);
-    const userId = this.userService.isLoggedIn()?.id;
     this.router.navigate(['/order-details/', orderResponse.orderId]);
 
+  }
+
+  ngOnInit(){
+    const cart = this.cartService.GetCart();
+
+    if(cart === null || cart?.restaurantId === null)
+      return;
+
+    this.restaurantService.GetById(cart.restaurantId)
+    this.menuService.GetCategoriesById(cart.restaurantId);
   }
 }
 

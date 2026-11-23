@@ -136,7 +136,8 @@ export class CartService {
             return 0;
 
         return cart.items.reduce((total, item) => {
-            const product = this.menuService.GetProductDetails(cart.restaurantId, item.productId);
+            const product = this.menuService.FindProduct(item.productId);
+
             return total + (product?.price ?? 0) * item.quantity;
         }, 0);
     }

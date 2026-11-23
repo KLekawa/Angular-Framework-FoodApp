@@ -39,7 +39,7 @@ export class RestaurantForm {
     }
     
     if(this.mode() === 'add'){
-      let maxId = this.restaurantsService.GetAll()().reduce(
+      let maxId = this.restaurantsService.restaurants().reduce(
         (max, restaurant) => Math.max(max, restaurant.id ?? 0),
         0
       );

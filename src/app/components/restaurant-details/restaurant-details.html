@@ -1,5 +1,8 @@
-@let restaurantData = restaurant();
-@if(restaurantData){
+@if(restaurantsService.detailsLoading()){
+    <h3>Loading restaurant...</h3>
+} @else if(restaurantsService.detailsError(); as error){
+    <h3>{{error}}</h3>
+} @else if(restaurant(); as restaurantData){
     <h2>Name: {{ restaurantData.name }}</h2>
     <h3>Description: {{ restaurantData.description}}</h3>
     <img src="{{ restaurantData.imageUrl}}" />

@@ -2,9 +2,9 @@
 <div class="toolbar">
   <div class="filter">
     <p>Filter</p>
-    <input type="text" placeholder="Search" [formField]="form.nameSearch" (input)="updateRestaurantData()"/>
+    <input type="text" placeholder="Search" [formField]="form.nameSearch"/>
     Cuisine: 
-    <select [formField]="form.cuisine" (change)="updateRestaurantData()">
+    <select [formField]="form.cuisine">
       <option>All</option>
       <option value="polish">Polish</option>
       <option value="italian">Italian</option>
@@ -14,17 +14,17 @@
     </select>
 
     Status:
-    <select [formField]="form.active" (change)="updateRestaurantData()">
+    <select [formField]="form.active" >
       <option>All</option>
       <option value="true">Open</option>
     </select>
-    Minimum Order Value: <input type="number" placeholder="Amount" [formField]="form.minimumOrderVal" (input)="updateRestaurantData()"/>
+    Minimum Order Value: <input type="number" placeholder="Amount" [formField]="form.minimumOrderVal"/>
   </div>
 
   <div class="sort">
     <p>Sort</p>
 
-    <select [formField]="form.sortOption" (input)="updateRestaurantData()">
+    <select [formField]="form.sortOption">
       <option>None</option>
       <option value="rating">Rating High - Low</option>
       <option value="deliveryTime">Delivery Time</option>
@@ -35,13 +35,21 @@
 <div class="foundItems">
   <p>Restaurant found: {{itemsFound()}}</p>
 </div>
-<section class="list">
 
-  @for(restaurant of restaurants(); track restaurant.id){
-    <app-restaurant-card [restaurant]="restaurant"/>
-  }
-  @empty {
-    <div class="no-restaurants">No restaurants found</div>
-  }
+@if(loading()){
+  <h3>Loading...</h3>
+} @else if(error()){
+  <h3>Failed to load restaurants</h3>
+} @else {
+  <section class="list">
 
-</section>
+    @for(restaurant of restaurants(); track restaurant.id){
+      <app-restaurant-card [restaurant]="restaurant"/>
+    }
+    @empty {
+      <div class="no-restaurants">No restaurants found</div>
+    }
+
+  </section>
+}
+

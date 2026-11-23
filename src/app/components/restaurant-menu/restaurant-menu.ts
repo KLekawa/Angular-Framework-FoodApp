@@ -14,16 +14,18 @@ export class RestaurantMenu {
   cartService = inject(CartService);
   id = input<string>();
 
-  categories = computed(() =>{
+  categories = this.menuService.categoriesOfRestaurant;
+
+  AddToCart(productId: number){
+    this.cartService.AddToCart(Number(this.id()), productId);
+  }
+
+  ngOnInit(){
     const id = this.id();
 
     if(id === undefined)
       return undefined;
 
-    return this.menuService.GetCategoriesById(Number(id));
-  })
-
-  AddToCart(productId: number){
-    this.cartService.AddToCart(Number(this.id()), productId);
+    this.menuService.GetCategoriesById(Number(id))
   }
 }

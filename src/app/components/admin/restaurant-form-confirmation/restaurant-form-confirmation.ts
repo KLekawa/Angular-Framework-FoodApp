@@ -11,16 +11,10 @@ import { RestaurantsService } from '../../../services/restaurants-service';
 })
 export class RestaurantFormConfirmation {
   restaurantsService = inject(RestaurantsService);
-    private router = inject(Router);
+  private router = inject(Router);
   id = input();
 
-  restaurant = computed(() =>{
-    // const id = this.id();
-    // if(id === undefined) 
-    //   return undefined;
-    
-    return this.restaurantsService.GetById(Number(this.id()));
-  }) 
+  restaurant = this.restaurantsService.selectedRestaurant;
 
 
   Deactivate(id:number | null){
@@ -28,7 +22,22 @@ export class RestaurantFormConfirmation {
       return;
     }
 
-    this.restaurantsService.ChangeStatus(id);
-    this.router.navigate(['/admin/restaurants']);
+   const request = this.restaurantsService.ChangeStatus(id);
+   if(!request) return;
+
+   request.subscribe({
+      next: updatedRestaurant => {
+        this.restaurantsService.UpdateSelectedRestaurant(updatedRestaurant);
+        this.restaurantsService.Reload();
+        this.router.navigate(['/admin/restaurants']);
+      },
+      error: err =>{
+        console.error('Failed to change restaurant status: ', err)
+      }
+    });
+  }
+
+  ngOnInit(){
+    this.restaurantsService.GetById(Number(this.id()));
   }
 }

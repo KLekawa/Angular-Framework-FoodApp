@@ -1,4 +1,8 @@
-@if(product(); as product){
+@if(menuService.loading()){
+    <h3>Loading...</h3>
+} @else if(menuService.error()){
+    <h3>Failed to load menu</h3>
+} @else if(product(); as product){
     <h2>{{product.name}}</h2>
     <h3>{{product.description}}</h3>
     <p>Cena: {{product.price}} USD</p>

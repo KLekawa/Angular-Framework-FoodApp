@@ -1,9 +1,15 @@
 <h2>Cart</h2>
 @if(cart(); as cart){
-    <h3>From the {{restaurantName()}}</h3>
+    @if (restaurantLoading()) {
+        <h3>Loading restaurant...</h3>
+    } @else if (restaunratError(); as errorMessage) {
+        <p class="error">{{ errorMessage }}</p>
+    } @else {
+        <h3>From the {{ restaurantName() }}</h3>
+    }
     <div class="cart-items">
     @for (item of cart.items; track item.productId) {    
-        @if(menuService.GetProductDetails(cart.restaurantId, item.productId); as product){
+        @if(menuService.FindProduct(item.productId); as product){
                 <div class="cart-item">
                     <span class="item-name">{{product.name}}</span>
                     <span class="item-price">{{product.price | number:'1.2-2'}} USD</span>
@@ -32,22 +38,31 @@
                     <span>{{cartService.GetTotalPrice() | number:'1.2-2' }} USD</span>
                 </div>
 
-                <div class="summary-row">
-                    <span>Delivery fee</span>
-                    <span>{{restaurantDeliveryFee() | number:'1.2-2'}} USD</span>
-                </div>
+               @if (restaurantLoading()) {
+                    <p>Calculating delivery fee...</p>
+                } @else if (restaunratError(); as errorMessage) {
+                    <p class="error">{{ errorMessage }}</p>
+                } @else if (restaurantDeliveryFee() != null;) {
 
-                <div class="summary-divider"></div>
+                    <div class="summary-row">
+                        <span>Delivery fee</span>
+                        <span>{{ restaurantDeliveryFee() | number:'1.2-2' }} USD</span>
+                    </div>
 
-                <div class="summary-row summary-total">
-                    <span>Total to pay</span>
-                    <span>{{cartService.GetTotalPrice() + (restaurantDeliveryFee() ?? 0) | number:'1.2-2'}} USD</span>
-                </div>
+                    <div class="summary-divider"></div>
 
-                <button type="button" class="checkout-btn" routerLink="/checkout">
-                Proceed to Checkout
-                <span>→</span>
-                </button>
+                    <div class="summary-row summary-total">
+                        <span>Total to pay</span>
+                        <span>
+                        {{ cartService.GetTotalPrice() + restaurantDeliveryFee()! | number:'1.2-2' }} USD
+                        </span>
+                    </div>
+
+                    <button type="button" class="checkout-btn" routerLink="/checkout">
+                    Proceed to Checkout
+                    <span>→</span>
+                    </button>
+                }
             </div>
         </div>
 } @else {

@@ -1,4 +1,8 @@
-@if(categories(); as categories){
+@if(menuService.loading()){
+    <h3>Loading...</h3>
+} @else if(menuService.error()){
+    <h3>Failed to load menu</h3>
+} @else if(categories(); as categories){
     @for(category of categories; track category.id){
         <section>
             <h2>{{ category.name }} </h2>
@@ -12,5 +16,7 @@
             }
 
         </section>
+    } @empty {
+        <h3>No product added to this restaurant</h3>
     }
 }

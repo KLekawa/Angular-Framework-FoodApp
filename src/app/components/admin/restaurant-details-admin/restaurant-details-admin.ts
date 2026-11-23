@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { RestaurantsService } from '../../../services/restaurants-service';
 import { RouterLink } from '@angular/router';
 
@@ -9,10 +9,12 @@ import { RouterLink } from '@angular/router';
   templateUrl: './restaurant-details-admin.html',
 })
 export class RestaurantDetailsAdmin {
-    restaurantsService = inject(RestaurantsService);
+  restaurantsService = inject(RestaurantsService);
   readonly id = input.required<string>();
 
-  restaurant = computed( () =>{
-    return this.restaurantsService.GetById(Number(this.id()))
-  })
+  restaurant = this.restaurantsService.selectedRestaurant;
+
+  ngOnInit(){
+    this.restaurantsService.GetById(Number(this.id()));
+  }
 }

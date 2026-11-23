@@ -16,21 +16,15 @@ export class Cart {
   cartService = inject(CartService);
   menuService = inject(MenuService);
   private restaurantService = inject(RestaurantsService);
+  restaurantLoading = this.restaurantService.detailsLoading;
+  restaunratError = this.restaurantService.detailsError;
 
   restaurantDeliveryFee = computed (() =>{
-    const restaurantId = this.cart()?.restaurantId;
-    if(restaurantId === undefined || restaurantId === null)
-      return undefined
-
-    return this.restaurantService.GetById(restaurantId)?.deliveryFee;
+    return this.restaurantService.selectedRestaurant()?.deliveryFee;
   }) 
 
   restaurantName = computed (() =>{
-    const restaurantId = this.cart()?.restaurantId;
-    if(restaurantId === undefined || restaurantId === null)
-      return undefined
-
-    return this.restaurantService.GetById(restaurantId)?.name;
+    return this.restaurantService.selectedRestaurant()?.name;
   }) 
   
   cart = computed(() => this.cartService.GetCart()); 
@@ -47,4 +41,13 @@ export class Cart {
     this.cartService.ChangeQuantity(productid, Number(quantity)+1);
   }
 
+  ngOnInit(){
+    const cart = this.cart();
+
+    if(cart === null)
+      return;
+
+    this.restaurantService.GetById(cart.restaurantId);
+    this.menuService.GetCategoriesById(cart.restaurantId);
+  }
 }

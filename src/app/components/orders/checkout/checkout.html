@@ -64,4 +64,10 @@
 }
 <br>
 
-<button (click)="Checkout()">Checkout</button>
+@if (menuLoading() || restaurantLoading()) {
+  <p>Loading order data...</p>
+} @else if (menuError() || restaurantError()) {
+  <p class="error">Failed to load order data. Please try again.</p>
+} @else {
+  <button (click)="Checkout()">Checkout</button>
+}
