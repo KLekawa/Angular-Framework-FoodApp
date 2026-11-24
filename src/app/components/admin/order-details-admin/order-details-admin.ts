@@ -12,9 +12,9 @@ import { form, FormField } from '@angular/forms/signals';
   templateUrl: './order-details-admin.html',
 })
 export class OrderDetailsAdmin {
-  private orderService = inject(OrderService);
+  orderService = inject(OrderService);
   OrderStatus = OrderStatus;
-  orderId = input()
+  id = input()
 
   statusForm = signal({
     newStatus: ''
@@ -22,16 +22,27 @@ export class OrderDetailsAdmin {
 
   form = form(this.statusForm);
 
-  order = computed( () => {
-    const id = this.orderId();
-    if(id === undefined)
-      return null;
-
-    return this.orderService.GetOrdersById(Number(id));
-  })
+  order = this.orderService.selectedOrder;
 
   ChangeStatus(){
-    this.orderService.ChangeStatus(Number(this.orderId()), Number(this.statusForm().newStatus) as OrderStatus);
+    const id = this.id();
+    if(id === undefined) return;
+
+    this.orderService.ChangeStatus(Number(id), Number(this.statusForm().newStatus) as OrderStatus)
+      .subscribe({
+        next: () => {
+          this.orderService.ReloadAll();
+          this.orderService.ReloadOrderDetails();
+        },
+        error: err => console.error('Failed to change status: ', err)
+      });
   }
 
+  ngOnInit(){
+    const id = this.id();
+    if(id === undefined)
+      return
+
+    this.orderService.GetOrdersById(Number(id));
+  }
 }

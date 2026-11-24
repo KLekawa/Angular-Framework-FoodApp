@@ -13,13 +13,15 @@ import { OrderStatus } from '../../../models/order.model';
 export class OrderHistory {
   userId = input();
   OrderStatus = OrderStatus;
-  private orderService = inject(OrderService);
+  orderService = inject(OrderService);
 
-  userOrders = computed( () =>{
+  userOrders = this.orderService.selectedOrderByUserId;
+
+  ngOnInit(){
     const id = this.userId();
     if(id === undefined)
-      return null;
+      return
 
-    return this.orderService.GetOrdersByUserId(Number(id));
-  })
+    this.orderService.GetOrdersByUserId(Number(id));
+  }
 }

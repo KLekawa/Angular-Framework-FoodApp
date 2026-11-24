@@ -27,7 +27,7 @@ export interface OrderItem {
 }
 
 export interface Order{
-    orderId: number;
+    id: number;
     userId: number | null;
     restaurantId: number;
     orderUserData: OrderUserData;

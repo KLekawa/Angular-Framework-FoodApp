@@ -1,5 +1,5 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { OrderStatus } from '../../../models/order.model';
 import { OrderService } from '../../../services/order-service';
@@ -13,10 +13,9 @@ import { form, FormField } from '@angular/forms/signals';
 })
 export class OrderHistory {
   OrderStatus = OrderStatus;
-  private orderService = inject(OrderService);
+  orderService = inject(OrderService);
 
-  orders =  this.orderService.GetAll();
-  userOrders = this.orders;
+  orders =  this.orderService.orders;
 
   filterForm = signal({
     orderStatus: 'All'
@@ -24,15 +23,18 @@ export class OrderHistory {
   
   form = form(this.filterForm);
 
-  FilterStatusChange(){
-    if(this.filterForm().orderStatus === 'All'){
-      this.userOrders = this.orders;
-      return;
-    }
 
-    const parsedStatus = OrderStatus[this.filterForm().orderStatus as keyof typeof OrderStatus];
-    this.userOrders = this.orders.filter(o => o.status === parsedStatus);
-  }
+  // parsedStatus = OrderStatus[this.filterForm().orderStatus as keyof typeof OrderStatus];
+  userOrders = computed( () =>{
+    const status = this.filterForm().orderStatus;
+    const orders = this.orders();
+
+    if(status === 'All')
+      return orders;
+
+    return orders.filter(o => o.status === Number(status));
+  })
+
 
   ResetStatus(){
     this.filterForm.update(c => ({
@@ -40,6 +42,5 @@ export class OrderHistory {
       orderStatus: 'All'
     }));
 
-    this.FilterStatusChange();
   }
 }

@@ -145,7 +145,7 @@ export class Checkout {
       return;
     }
 
-    const order: Omit<Order, 'orderId' | 'userId' | 'createdAt' | 'status'> = {
+    const order: Omit<Order, 'id' | 'userId' | 'createdAt' | 'status'> = {
       restaurantId: cart.restaurantId,
       orderUserData: orderUserData,
       orderItems: orderItems,
@@ -154,8 +154,16 @@ export class Checkout {
       totalPrice: subtotal + Number(deliveryFee),
     }
   
-    const orderResponse = this.orderService.CreateOrder(order);
-    this.router.navigate(['/order-details/', orderResponse.orderId]);
+    
+    this.orderService.CreateOrder(order)
+      .subscribe({
+        next: (orderResponse) =>{
+          this.orderService.ReloadAll();
+          this.cartService.ClearCart();
+          this.router.navigate(['/order-details/', orderResponse.id]);
+        },
+        error: (err) => console.error("Failed to create order: ", err)
+      });
 
   }
 

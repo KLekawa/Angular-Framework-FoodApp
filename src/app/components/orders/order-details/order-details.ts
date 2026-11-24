@@ -11,16 +11,17 @@ import { OrderStatus } from '../../../models/order.model';
   templateUrl: './order-details.html',
 })
 export class OrderDetails {
-  private orderService = inject(OrderService);
+  orderService = inject(OrderService);
   OrderStatus = OrderStatus;
-  orderId = input()
+  id = input()
 
-  order = computed( () => {
-    const id = this.orderId();
+  order = this.orderService.selectedOrder;
+
+  ngOnInit(){
+    const id = this.id();
     if(id === undefined)
-      return null;
+      return
 
-    return this.orderService.GetOrdersById(Number(id));
-  })
-
+    this.orderService.GetOrdersById(Number(id));
+  }
 }

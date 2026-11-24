@@ -24402,5 +24402,83 @@
         }
       ]
     }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 2,
+      "restaurantId": 1,
+      "orderUserData": {
+        "firstname": "Jan",
+        "lastname": "Kowalski",
+        "email": "jan@example.com",
+        "phone": "123456789",
+        "address": {
+          "street": "Kwiatowa",
+          "buildingNumber": "10",
+          "apartmentNumber": "2",
+          "postalCode": "30-001",
+          "city": "Kraków"
+        },
+        "paymentMethod": "blik"
+      },
+      "orderItems": [
+        {
+          "productId": 35,
+          "name": "Testowy produkt",
+          "price": 25.9,
+          "quantity": 2
+        }
+      ],
+      "status": 4,
+      "createdAt": "2026-11-24T18:00:00.000Z",
+      "subtotal": 51.8,
+      "deliveryFee": 8.99,
+      "totalPrice": 60.79
+    },
+    {
+      "restaurantId": 2,
+      "orderUserData": {
+        "firstname": "Firstname",
+        "lastname": "Lastname",
+        "email": "test2@email.com",
+        "phone": "123456789",
+        "address": {
+          "street": "street",
+          "buildingNumber": "buildNr",
+          "apartmentNumber": "AprNr",
+          "postalCode": "11-111",
+          "city": "City"
+        },
+        "paymentMethod": "blik"
+      },
+      "orderItems": [
+        {
+          "productId": 15,
+          "name": "Pepperoni",
+          "price": 39.9,
+          "quantity": 1
+        },
+        {
+          "productId": 16,
+          "name": "Quattro Formaggi",
+          "price": 44.9,
+          "quantity": 1
+        },
+        {
+          "productId": 17,
+          "name": "Caprese",
+          "price": 26.9,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 111.69999999999999,
+      "deliveryFee": 0,
+      "totalPrice": 111.69999999999999,
+      "userId": null,
+      "createdAt": "2026-11-24T22:23:09.778Z",
+      "status": 0,
+      "id": 2
+    }
   ]
 }

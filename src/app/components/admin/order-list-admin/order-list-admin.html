@@ -1,9 +1,12 @@
 <h2>Admin order history</h2>
-
-@if (userOrders !== null) {
+@if(orderService.ordersLoading()){
+  <h3>Loading...</h3>
+} @else if(orderService.ordersError()){
+  <h3>Failed to load orders</h3>
+} @else {
   <div class="filter">
     <label>Status: 
-      <select  [formField]='form.orderStatus' (change)="FilterStatusChange()">
+      <select  [formField]='form.orderStatus' >
         <option value="All">All</option>
         <option value="New">New</option>
         <option value="Accepted">Accepted</option>
@@ -17,14 +20,14 @@
   </div>
 
   <div class="orders-list">
-  @for (order of userOrders; track order.orderId) {
+  @for (order of userOrders(); track order.id) {
 
     <a class="order-card"
-        [routerLink]="['/admin/order-details', order.orderId]">
+        [routerLink]="['/admin/order-details', order.id]">
 
       <div class="order-header">
         <div class="order-heading">
-          <h3>Order #{{ order.orderId }}</h3>
+          <h3>Order #{{ order.id }}</h3>
           <span class="order-date">
             {{ order.createdAt | date:'dd.MM.yyyy, HH:mm' }}
           </span>

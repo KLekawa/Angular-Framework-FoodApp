@@ -35,7 +35,7 @@ export const AdminRoutes = [
         loadComponent: () => import('./order-list-admin/order-list-admin').then((m) => m.OrderHistory)
     },
     {
-        path: 'order-details/:orderId',
+        path: 'order-details/:id',
         loadComponent: () => import('./order-details-admin/order-details-admin').then((m) => m.OrderDetailsAdmin)
     }
 ]

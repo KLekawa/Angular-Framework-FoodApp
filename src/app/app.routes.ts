@@ -62,7 +62,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/orders/order-history/order-history').then((m) => m.OrderHistory)
     },
     {
-        path: 'order-details/:orderId',
+        path: 'order-details/:id',
         loadComponent: () => import('./components/orders/order-details/order-details').then((m) => m.OrderDetails)
     }
     
